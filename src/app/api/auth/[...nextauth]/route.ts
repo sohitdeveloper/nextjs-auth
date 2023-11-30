@@ -10,11 +10,37 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {},
       async authorize(credentials) {
-        const { email, password } = credentials as {
+        const { identifier, email, password } = credentials as {
+          identifier: any;
           email: string;
           password: string;
         };
+        let info = identifier ? JSON.parse(identifier) : "";
+        if (info) {
+          console.log(JSON.stringify(identifier), "someinfo");
+          console.log(info, "someinfo");
+          console.log(identifier, "someinfo");
+          try {
+            const res = await fetch(
+              `https://run.mocky.io/v3/3b1c0852-a986-4a18-94df-6548b57d5bc9`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: identifier,
+              }
+            );
+            const user = await res.json();
 
+            if (res.status === 200) {
+              return user;
+            }
+            return null;
+          } catch {
+            throw new Error("Email or Password is invalid");
+          }
+        }
         try {
           const res = await fetch(
             `https://run.mocky.io/v3/0a98ebc8-064f-42ea-9d2f-0b3060d861ab`,
@@ -44,20 +70,23 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt(params) {
-      if (params.user) {
-        params.token.role = params.user.role;
-        params.token.jwtToken = params.user.jwtToken;
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update") {
+        console.log(trigger, "updateishere");
       }
-      if (params.user?.email) {
-        params.token.email = params.user.email;
+      if (user) {
+        token.role = user.role;
+        token.jwtToken = user.jwtToken;
+        token.status = user.status;
+        token.message = user.message;
+      }
+      if (user?.email) {
+        token.email = user.email;
       }
 
-      return params.token;
+      return token;
     },
     async session(params) {
-      // session.role = token.role;
-      // session.jwtToken = token.jwtToken;
       return params.token;
     },
   },

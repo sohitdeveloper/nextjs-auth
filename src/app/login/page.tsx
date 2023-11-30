@@ -1,50 +1,33 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { setCookieToken, setToken } from "@/utils/common";
+
 const Login = () => {
-  const { data: session, status } = useSession();
-  const userEmail = session?.user?.email;
+  const { data: session } = useSession();
   const router = useRouter();
 
-  // if (status === "loading") {
-  //   return <p>Hang on there...</p>;
-  // }
-
-  // if (status === "authenticated") {
-  //   return (
-  //     <>
-  //       <p>Signed in as {userEmail}</p>
-  //       <button onClick={() => signOut()}>Sign out</button>
-  //     </>
-  //   );
-  // }
   console.log(session);
   const onLogin = async (type: String) => {
     try {
       if (type === "google") {
-        // signIn("google");
-        setToken("sometoken");
-        setCookieToken("jwt-token", "sometoken");
-        router.push("/");
+        signIn("google");
+        router.push("/dashboard");
       }
       if (type === "normal") {
-        // setToken("sometoken");
-        // setCookieToken("jwt-token", "sometoken");
-        // router.push("/");
         await signIn("credentials", {
           email: "sohit@gmail.com",
           password: "password",
-          redirect: false,
-          callbackUrl: "/",
+          redirect: true,
+          callbackUrl: "/dashboard",
         }).then((res) => {
-          if (res?.error) {
-            console.log("error");
-          } else {
-            console.log("success", res);
+          if (res) {
+            console.log(res);
           }
         });
+      }
+      if (type === "sign with phone") {
+        router.push("/login/login-with-phone");
       }
     } catch (error: any) {
       console.log("Login failed", error.message);
@@ -57,6 +40,9 @@ const Login = () => {
       <div>
         <button onClick={() => onLogin("normal")}>Sign in</button>
         <button onClick={() => onLogin("google")}>Sign in with google</button>
+        <button onClick={() => onLogin("sign with phone")}>
+          Sign in with phone
+        </button>
       </div>
     </div>
   );
