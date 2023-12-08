@@ -1,19 +1,20 @@
 "use client";
-import { useParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Todo = () => {
-  const { id } = useParams();
-  console.log("🚀 ~ file: page.tsx:7 ~ Todo ~ id:", id);
+  const pathName = usePathname();
+
   const [todo, setTodo] = useState<any>();
   useEffect(() => {
+    const id = pathName.slice(pathName.lastIndexOf("/") + 1, pathName.length);
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
       .then(async (response) => {
         let resp = await response.json();
         setTodo(resp);
       })
       .then((json) => console.log(json));
-  }, [id]);
+  }, [pathName]);
   return (
     <div
       style={{
