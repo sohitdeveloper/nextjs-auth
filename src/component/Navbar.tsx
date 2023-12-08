@@ -1,12 +1,11 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  console.log("🚀 ~ file: Navbar.tsx:8 ~ Navbar ~ session:", session);
 
   /* @ts-ignore */
   const token = session?.jwtToken;
@@ -45,6 +44,12 @@ const Navbar = () => {
             </Link>
           </li>
         )}
+
+        <li style={{ marginRight: "10px" }}>
+          <Link href="/todos" passHref>
+            <div>Todos</div>
+          </Link>
+        </li>
 
         {!token && (
           <li style={{ marginRight: "10px" }}>

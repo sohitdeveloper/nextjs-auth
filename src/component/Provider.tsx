@@ -10,10 +10,16 @@ const publicPaths = [
   "/signup",
   "/login",
   "/login/login-with-phone",
+  "/todos",
 ];
 const Provider = (props: any) => {
   const pathname = usePathname();
-  const isPublicRoute = publicPaths.includes(pathname);
+  // const isPublicRoute = publicPaths.includes(pathname);
+  const isPublicRoute =
+    publicPaths.some(
+      (path) => path === pathname || pathname.startsWith(`${path}/`)
+    ) || /^\/todos\/\d+$/.test(pathname);
+
   const { session } = props;
 
   return (
