@@ -15,16 +15,17 @@ const Login = () => {
         router.push("/dashboard");
       }
       if (type === "normal") {
-        await signIn("credentials", {
-          email: "sohit@gmail.com",
-          password: "password",
-          redirect: true,
-          callbackUrl: "/dashboard",
-        }).then((res) => {
-          if (res) {
-            console.log(res);
-          }
-        });
+        try {
+          const result = await signIn("credentials", {
+            email: "sohit@gmail.com",
+            password: "password",
+            redirect: true,
+            callbackUrl: "/dashboard",
+          });
+          console.log(result);
+        } catch (error) {
+          console.error("Login failed", error);
+        }
       }
       if (type === "sign with phone") {
         router.push("/login/login-with-phone");
