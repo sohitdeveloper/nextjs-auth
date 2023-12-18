@@ -12,11 +12,11 @@ const Navbar = () => {
 
   const handleAuth = async () => {
     if (token) {
-      await signOut({ callbackUrl: "/login" });
-    } else {
-      router.push("/login");
+      await signOut({ redirect: true, callbackUrl: "/login" });
+      // router.push("/login");
     }
   };
+  console.log(session);
   return (
     <nav>
       <ul style={{ display: "flex", listStyle: "none", padding: 0 }}>

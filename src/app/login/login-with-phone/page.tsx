@@ -57,16 +57,33 @@ const LoginWithPhone = () => {
     } catch (error) {
       console.error("Invalid OTP:", error);
     }
-    await signIn("credentials", {
-      identifier: JSON.stringify({ phone: phoneNumber, otp: otp }),
-      password: "",
-      redirect: true,
-      callbackUrl: "/dashboard",
-    }).then((res) => {
-      if (res) {
-        console.log(res);
-      }
-    });
+    try {
+      await signIn("credentials", {
+        identifier: JSON.stringify({ phone: phoneNumber, otp: otp }),
+        password: "",
+        redirect: true,
+        callbackUrl: "/dashboard",
+      }).then((res) => {
+        if (res) {
+          console.log(res);
+        }
+      });
+    } catch (error) {
+      console.error("Invalid signin:", error);
+    }
+  };
+
+  const handleResendOTP = async () => {
+    try {
+      const confirmation = await signInWithPhoneNumber(
+        auth,
+        phoneNumber,
+        window.recaptchaVerifier
+      );
+      console.log(confirmation, "user existence");
+    } catch (error) {
+      console.log("Error while resending otp", error);
+    }
   };
 
   return (
@@ -92,6 +109,9 @@ const LoginWithPhone = () => {
             onChange={(e) => setOtp(e.target.value)}
           />
           <button onClick={handleOtpSubmit}>Verify OTP</button>
+          <span>
+            <button onClick={handleResendOTP}>Resend OTP</button>
+          </span>
         </div>
       )}
     </div>
