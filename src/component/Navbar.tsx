@@ -13,7 +13,9 @@ const Navbar = () => {
   const handleAuth = async () => {
     if (token) {
       await signOut({ redirect: true, callbackUrl: "/login" });
-      // router.push("/login");
+      router.push("/login");
+    } else {
+      router.push("/login");
     }
   };
   console.log(session);
