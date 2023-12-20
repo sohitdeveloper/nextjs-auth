@@ -1,7 +1,6 @@
 "use client";
 
 import MonthSection from "@/component/MonthSection";
-import { organizeRacesByMonth } from "@/utils/common";
 import React, { useEffect, useState } from "react";
 
 const Races = () => {
