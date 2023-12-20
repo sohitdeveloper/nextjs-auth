@@ -53,6 +53,12 @@ const Navbar = () => {
           </Link>
         </li>
 
+        <li style={{ marginRight: "10px" }}>
+          <Link href="/races" passHref>
+            <div>Races</div>
+          </Link>
+        </li>
+
         {!token && (
           <li style={{ marginRight: "10px" }}>
             <Link href="/signup" passHref>

@@ -1,0 +1,7 @@
+.races_bg {
+    background-color: aliceblue;
+}
+
+.races_bg:hover {
+    background-color: #45C0A6;
+}

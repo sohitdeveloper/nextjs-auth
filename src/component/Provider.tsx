@@ -11,6 +11,7 @@ const publicPaths = [
   "/login",
   "/login/login-with-phone",
   "/todos",
+  "/races",
 ];
 const Provider = (props: any) => {
   const pathname = usePathname();
