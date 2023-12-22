@@ -1,4 +1,5 @@
 "use client";
+import Calendar from "@/component/Calendar";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -16,36 +17,39 @@ const Todos = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        height: "400px",
-        overflowY: "scroll",
-        marginTop: "100px",
-        boxShadow:
-          "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-        padding: "20px",
-      }}
-    >
-      {todos?.map((item: any) => {
-        return (
-          <div
-            style={{
-              margin: "10px",
-              padding: "10px",
-              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              cursor: "pointer",
-            }}
-            onClick={() => router.push(`/todos/${item.id}`)}
-          >
-            <div>ID : {item.id}</div>
-            <div>Title : {item.title}</div>
-            <div>isCompleted : {item.completed ? "true" : "false"}</div>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div>{/* <Calendar /> */}</div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          height: "400px",
+          overflowY: "scroll",
+          marginTop: "100px",
+          boxShadow:
+            "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+          padding: "20px",
+        }}
+      >
+        {todos?.map((item: any) => {
+          return (
+            <div
+              style={{
+                margin: "10px",
+                padding: "10px",
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                cursor: "pointer",
+              }}
+              onClick={() => router.push(`/todos/${item.id}`)}
+            >
+              <div>ID : {item.id}</div>
+              <div>Title : {item.title}</div>
+              <div>isCompleted : {item.completed ? "true" : "false"}</div>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/react-date-range": "^1.4.9",
     "axios": "^1.6.2",
     "firebase": "^10.7.1",
     "next": "13.5.1",
     "next-auth": "^4.24.5",
     "react": "^18",
+    "react-date-range": "^1.4.0",
     "react-dom": "^18"
   },
   "devDependencies": {

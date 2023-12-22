@@ -5,3 +5,11 @@
 .races_bg:hover {
     background-color: #45C0A6;
 }
+
+.h-400 {
+    height: 400px;
+}
+
+.b_1 {
+    border: 1px solid black
+}
