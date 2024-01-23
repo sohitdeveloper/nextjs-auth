@@ -21,6 +21,9 @@ export default async function RootLayout({
   console.log("🚀 ~ file: layout.tsx:21 ~ session:", session);
   return (
     <html lang="en">
+      <head>
+        <script src="https://apis.google.com/js/api:client.js"></script>
+      </head>
       <body className={inter.className}>
         <Provider session={session}>{children}</Provider>
       </body>

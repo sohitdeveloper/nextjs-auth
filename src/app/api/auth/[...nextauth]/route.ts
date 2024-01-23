@@ -63,14 +63,21 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
-    GoogleProvider({
-      clientId:
-        "1054150548382-hpqnjiu6hlamum5l40apkma1oaauvjrd.apps.googleusercontent.com",
-      clientSecret: "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",
-    }),
+    // GoogleProvider({
+    //   clientId:
+    //     "767583294795-964hrdj7bp4lmatnuue3jn3qtq7gd8oh.apps.googleusercontent.com",
+    //   clientSecret: "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",
+    // }),
   ],
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger, session, account }) {
+      if (account?.provider === "google") {
+        const { id_token } = account;
+        token.jwtToken = "some token";
+        token.accessToken = id_token;
+        token.refreshToken = "some refresh token";
+        return token;
+      }
       if (trigger === "update") {
         console.log(trigger, "updateishere");
       }
